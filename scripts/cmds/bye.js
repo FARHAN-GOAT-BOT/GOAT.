@@ -21,17 +21,18 @@ const last = {};
 // =======================
 const TRIGGERS = [
   {
-    words: ["bay","Bay","বায়","বাই"],
-    text: "👉যাবি তো যা এতো বাই বাই করার কি আছে যা রাস্তা মাপ!🤫🥱",
+    words: ["bay","Bay","BYE","বাই","বায়","BY"],
+    text: "👉যাবি তো যা এতো বাই বাই করার কি আছে যা রাস্তা মাপ🤫🥱",
     images: [
       "https://i.imgur.com/gi53DUs.jpeg"
     ]
   },
   {
-    words: ["গুড মর্নিং""good morning","Good morning"],
-    text: "-@everyone- এই লুচ্ছা সকালে দাত ব্রাশ না করে গ্রুপে আইছে ওরে কেউ একটা উশখা মারো-😎🥴",
+    words: ["morning","Morning","গুড মর্নিং"],
+    text: "-এই লুচ্ছা সকালে দাত ব্রাশ না করে গ্রুপে আইছে ওরে কেউ একটা উশখা মারো-😎🥴",
     images: [
       "https://i.imgur.com/Qi1yjyx.jpeg",
+      "https://i.imgur.com/Qi1yjyx.jpeg"
     ]
   }
 ];
@@ -101,4 +102,4 @@ function download(url, dest) {
       reject();
     });
   });
-}
+      }

@@ -1,79 +1,103 @@
-const { createCanvas, loadImage } = require('canvas');
-const fs = require('fs');
+const axios = require("axios");
+const fs = require("fs");
 const path = require("path");
+
+async function getApiBase() {
+  try {
+    const GITHUB_RAW = "https://raw.githubusercontent.com/Saim-x69x/sakura/main/ApiUrl.json";
+    const res = await axios.get(GITHUB_RAW);
+    return res.data.apiv1;
+  } catch (e) {
+    console.error("GitHub raw fetch error:", e.message);
+    return null;
+  }
+}
+
+async function toFont(text, id = 21) {
+  try {
+    const apiBase = await getApiBase();
+    if (!apiBase) return text;
+    const apiUrl = `${apiBase}/api/font?id=${id}&text=${encodeURIComponent(text)}`;
+    const { data } = await axios.get(apiUrl);
+    return data.output || text;
+  } catch (e) {
+    console.error("Font API error:", e.message);
+    return text;
+  }
+}
 
 module.exports = {
   config: {
     name: "pair4",
-    author: 'Nyx x Ariyan MODIFIED BY NIROB',
-    category: "TOOLS"
+    aliases: ["lovepair4", "match4"],
+    author: "Saimx69x",
+    version: "2.0",
+    role: 0,
+    category: "love",
+    shortDescription: { en: "💘 Generate a love match between you and another group member" },
+    longDescription: { en: "This command calculates a love match based on gender. Shows avatars, background, and love percentage." },
+    guide: { en: "{p}{n} — Use this command in a group to find a love match" }
   },
 
   onStart: async function ({ api, event, usersData }) {
     try {
       const senderData = await usersData.get(event.senderID);
-      const senderName = senderData.name;
+      let senderName = senderData.name;
+
       const threadData = await api.getThreadInfo(event.threadID);
       const users = threadData.userInfo;
 
       const myData = users.find(user => user.id === event.senderID);
-      if (!myData || !myData.gender) {
-        return api.sendMessage("❌ Undefined gender, cannot find match.", event.threadID, event.messageID);
-      }
+      if (!myData || !myData.gender) return api.sendMessage("⚠️ Could not determine your gender. Please try again later.", event.threadID, event.messageID);
 
       const myGender = myData.gender.toUpperCase();
       let matchCandidates = [];
 
-      if (myGender === "MALE") {
-        matchCandidates = users.filter(user => user.gender === "FEMALE" && user.id !== event.senderID);
-      } else if (myGender === "FEMALE") {
-        matchCandidates = users.filter(user => user.gender === "MALE" && user.id !== event.senderID);
-      } else {
-        return api.sendMessage("❌ Undefined gender, cannot find match.", event.threadID, event.messageID);
-      }
+      if (myGender === "MALE") matchCandidates = users.filter(user => user.gender === "FEMALE" && user.id !== event.senderID);
+      else if (myGender === "FEMALE") matchCandidates = users.filter(user => user.gender === "MALE" && user.id !== event.senderID);
+      else return api.sendMessage("⚠️ Your gender is undefined. Cannot find a match. Please try again later.", event.threadID, event.messageID);
 
-      if (matchCandidates.length === 0) {
-        return api.sendMessage("😔 No suitable match found in the group.", event.threadID, event.messageID);
-      }
+      if (matchCandidates.length === 0) return api.sendMessage("❌ No suitable match found in the group. Please try again later.", event.threadID, event.messageID);
 
       const selectedMatch = matchCandidates[Math.floor(Math.random() * matchCandidates.length)];
-      const matchName = selectedMatch.name;
-      const lovePercentage = Math.floor(Math.random() * 100) + 1;
+      let matchName = selectedMatch.name;
 
-      // Canvas setup
-      const width = 800, height = 400;
-      const canvas = createCanvas(width, height);
-      const ctx = canvas.getContext('2d');
+      senderName = await toFont(senderName, 21);
+      matchName = await toFont(matchName, 21);
 
-      const background = await loadImage("https://i.postimg.cc/4xSzJ7SZ/Picsart-25-08-15-19-44-03-606.jpg");
-      const senderAvatar = await loadImage(await usersData.getAvatarUrl(event.senderID));
-      const matchAvatar = await loadImage(await usersData.getAvatarUrl(selectedMatch.id)); 
+      const avatar1 = `https://graph.facebook.com/${event.senderID}/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
+      const avatar2 = `https://graph.facebook.com/${selectedMatch.id}/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
 
-      ctx.drawImage(background, 0, 0, width, height);
-      ctx.drawImage(senderAvatar, 385, 40, 170, 170);
-      ctx.drawImage(matchAvatar, width - 213, 190, 180, 170);
+      const apiBase = await getApiBase();
+      if (!apiBase) return api.sendMessage("❌ Failed to fetch API base. Please try again later.", event.threadID, event.messageID);
 
-      const outputPath = path.join(__dirname, 'pair_output.png');
-      const out = fs.createWriteStream(outputPath);
-      const stream = canvas.createPNGStream();
-      stream.pipe(out);
+      const apiUrl = `${apiBase}/api/pair4?avatar1=${encodeURIComponent(avatar1)}&avatar2=${encodeURIComponent(avatar2)}`;
+      const outputPath = path.join(__dirname, "pair_output.png");
 
-      out.on('finish', () => {
-        const message = `🥰𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥 𝐩𝐚𝐢𝐫𝐢𝐧𝐠\n` +
-                        `• ${senderName} 🎀\n` +
-                        `• ${matchName} 🎀\n` +
-                        `💌 𝐖𝐢𝐬𝐡 𝐲𝐨𝐮 𝐭𝐰𝐨 𝐡𝐮𝐧𝐝𝐫𝐞𝐝 𝐲𝐞𝐚𝐫𝐬 𝐨𝐟 𝐡𝐚𝐩𝐩𝐢𝐧𝐞𝐬𝐬 💕\n\n` +
-                        `𝐋𝐨𝐯𝐞 𝐩𝐞𝐫𝐜𝐞𝐧𝐭𝐚𝐠𝐞: ${lovePercentage}% 💙`;
+      const imageRes = await axios.get(apiUrl, { responseType: "arraybuffer" });
+      fs.writeFileSync(outputPath, Buffer.from(imageRes.data, "binary"));
 
-        api.sendMessage({
-          body: message,
-          attachment: fs.createReadStream(outputPath)
-        }, event.threadID, () => fs.unlinkSync(outputPath), event.messageID);
-      });
+      const lovePercent = Math.floor(Math.random() * 31) + 70;
+
+      const message = `💞 𝗠𝗮𝘁𝗰𝗵𝗺𝗮𝗸𝗶𝗻𝗴 𝗖𝗼𝗺𝗽𝗹𝗲𝘁𝗲 💞
+
+🎀  ${senderName} ✨️
+🎀  ${matchName} ✨️
+
+🕊️ 𝓓𝓮𝓼𝓽𝓲𝓷𝔂 𝓱𝓪𝓼 𝔀𝓻𝓲𝓽𝓽𝓮𝓷 𝔂𝓸𝓾𝓻 𝓷𝓪𝓶𝓮𝓼 𝓽𝓸𝓰𝓮𝓽𝓱𝓮𝓻 🌹  
+𝓜𝓪𝔂 𝔂𝓸𝓾𝓻 𝓫𝓸𝓷𝓭 𝓵𝓪𝓼𝓽 𝓯𝓸𝓻𝓮𝓿𝓮𝓻 ✨️  
+
+💘 𝙲𝚘𝚖𝚙𝚊𝚝𝚒𝚋𝚒𝚕𝚒𝚝𝚢: ${lovePercent}% 💘`;
+
+      api.sendMessage(
+        { body: message, attachment: fs.createReadStream(outputPath) },
+        event.threadID,
+        () => fs.unlinkSync(outputPath),
+        event.messageID
+      );
 
     } catch (error) {
-      console.error(error);
-      return api.sendMessage("❌ An error occurred: " + error.message, event.threadID, event.messageID);
+      api.sendMessage("❌ An error occurred while trying to find a match. Please try again later.", event.threadID, event.messageID);
     }
   }
 };

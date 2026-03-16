@@ -4,8 +4,8 @@ const moment = require("moment-timezone");
 const getStreamFromURL = global.utils.getStreamFromURL;
 
 const gifList = [
-"https://i.postimg.cc/mrzwcJsh/GIF-20250712-114810-632.gif",
-"https://i.postimg.cc/mrzwcJsh/GIF-20250712-114810-632.gif",
+	"https://i.postimg.cc/mrzwcJsh/GIF-20250712-114810-632.gif",
+   "https://i.postimg.cc/mrzwcJsh/GIF-20250712-114810-632.gif"
 ];
 
 const getRandomGif = () =>
@@ -24,13 +24,13 @@ module.exports = {
 
 	langs: {
 		en: {
-			usage:"❌Usage: prefix <newPrefix> | prefix reset | prefix <newPrefix> -g",
-			reset:"✅Prefix reset successful!\n🔰 System prefix: %1",
-			onlyAdmin:"⛔Only bot admin can change global prefix.",
-			confirmGlobal:"⚙️Global prefix change requested\n👉React with emoji to confirm.                                                         ",                           
-			confirmThisThread:"🛠️Group prefix change requested\n👉React with emoji to confirm.                                                      ",                             
-			successGlobal:"✅ Global prefix changed!\n🆕 New prefix: %1",
-			successThisThread:"✅ Group prefix changed!\n🆕 New prefix: %1"
+			usage: "❌ Usage: prefix <newPrefix> | prefix reset | prefix <newPrefix> -g",
+			reset: "✅ Prefix reset successful!\n🔰 System prefix: %1",
+			onlyAdmin: "⛔ Only bot admin can change global prefix.",
+			confirmGlobal: "⚙️ Global prefix change requested.\n👉 React with emoji to confirm.________________________________________________________",
+			confirmThisThread: "🛠️ Group prefix change requested.\n👉 React with emoji to confirm._____________________________________________________",
+			successGlobal: "✅ Global prefix changed!\n🆕 New prefix: %1",
+			successThisThread: "✅ Group prefix changed!\n🆕 New prefix: %1"
 		}
 	},
 

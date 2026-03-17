@@ -6,12 +6,12 @@ const mahmud = [
         "babu",
         "bbu",
         "jan",
-        "সিজুকা",
+        "সিজু",
         "জান",
         "জানু",
         "বেবি",
-        "sizuka",
-        "Sizuka"
+        "sizu",
+        "Sizu"
        ];
 
 const baseApiUrl = async () => {
@@ -22,7 +22,7 @@ const baseApiUrl = async () => {
 module.exports = {
         config: {
                 name: "hinata",
-                aliases: ["baby", "bby", "bbu", "jan", "janu", "wifey", "SIZUKA"],
+                aliases: ["baby", "bby", "bbu", "jan", "janu", "wifey", "SIZU"],
                 version: "1.8",
                 author: "MahMUD",
                 countDown: 2,

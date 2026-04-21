@@ -51,11 +51,11 @@ module.exports = {
       const callback = () => {
         api.sendMessage(
           {
-            body: `✿•≫────•『PP』•────≪•✿
-𝐇𝐞𝐫𝐞 𝐢𝐬 𝐭𝐡𝐞 𝐩𝐫𝐨𝐟𝐢𝐥𝐞 𝐩𝐢𝐜𝐭𝐮𝐫𝐞 🌸
-𝐍𝐞 𝐭𝐨𝐫 𝐩𝐢𝐜: 🙂 ${name}
-𝐈𝐝: ${uid}
-✿•≫───────────────≪•✿`,
+            body: `✿•≫────•『𝐏'𝐏』•────≪•✿
+➪𝐇𝐞𝐫𝐞 𝐢𝐬 𝐭𝐡𝐞 𝐩𝐫𝐨𝐟𝐢𝐥𝐞 𝐩𝐢𝐜𝐭𝐮𝐫𝐞.✨
+
+『 ${name} 』
+✿•≫──────────────≪•✿`,
             attachment: fs.createReadStream(cachePath)
           },
           event.threadID,

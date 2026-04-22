@@ -47,7 +47,7 @@ module.exports = {
 			case "add":
 			case "-a": {
 				if (!isOwner)
-					return message.reply("❌ | Only my boss farhan can add operator.");
+					return message.reply("❌ | Only my boss Rayhan can add operator.");
 
 				let uids = [];
 				if (event.type === "message_reply") {
@@ -97,7 +97,7 @@ module.exports = {
 			case "remove":
 			case "-r": {
 				if (!isOwner)
-					return message.reply("❌ | Only my boss farhan can remove operator.");
+					return message.reply("❌ | Only my boss Rayhan can remove operator.");
 
 				let uids = [];
 
@@ -154,7 +154,7 @@ module.exports = {
 
 				const ownerBox =
 `╭━━━━━━〔 𝙾𝚆𝙽𝙴𝚁 〕━━━━━━╮
-│ 𝙽𝙰𝙼𝙴 :  𝙼𝚁_𝙵𝙰𝚁𝙷𝙰𝙽
+│ 𝙽𝙰𝙼𝙴 :  ꜰᴍᴢ ʀᴀʏʜᴀɴ
 │ 𝚄𝙸𝙳 : ${OWNER.join(", ")}
 ╰━━━━━━━━━━━━━━━━━━╯`;
 

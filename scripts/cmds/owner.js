@@ -21,7 +21,7 @@ module.exports = {
  
  ‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆ 
   [🤖]↓:𝐁𝐎𝐓→𝐀𝐃𝐌𝐈𝐍:↓
-  ➤ 『 𝐑𝐉-𝐅𝐀𝐑𝐇𝐀𝐍 』
+  ➤ 『 𝐅𝐌𝐙 𝐑𝐀𝐘𝐇𝐀𝐍 』
  ‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆
 
 ╠══❖『𝐁𝐈𝐎 𝐀𝐃𝐌𝐈𝐍』❖══╣
@@ -62,10 +62,10 @@ module.exports = {
 ➤ https://wa.me/+8801934640061
 
 [🌍] 𝐅𝐀𝐂𝐄𝐁𝐎𝐎𝐊 𝐈𝐃 (❶)
-➤ https://m.me/MR.FARHAN.420
+➤ https://m.me/61560833120754
 
 [🌍] 𝐅𝐀𝐂𝐄𝐁𝐎𝐎𝐊 𝐈𝐃 (❷)
-➤ https://www.facebook.com/MR.FARHAN.420
+➤ https://www.facebook.com/61560833120754
 
 ╚═══❖𝗧𝗛𝗔𝗡𝗞 𝗬𝗢𝗨❖═══╝`;
 
@@ -74,7 +74,7 @@ module.exports = {
 
     if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir);
 
-    const imgLink = "https://i.imgur.com/aeYswQs.jpeg";
+    const imgLink = "https://i.imgur.com/TQGs5IH.jpeg";
 
     const send = () => {
       api.sendMessage(
